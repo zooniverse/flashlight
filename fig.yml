@@ -1,0 +1,15 @@
+elasticsearch:
+  image: elasticsearch:1.4.4
+  ports:
+    - "9200:9200"
+
+search:
+  build: .
+  volumes:
+    - ./:/node_app
+  ports:
+    - "8080:3000"
+  environment:
+    ES_HOST: 'elasticsearch'
+  links:
+    - elasticsearch

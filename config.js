@@ -14,7 +14,7 @@ exports.FB_URL   = 'https://' + process.env.FB_NAME + '.firebaseio.com/';
 
 // Either your Firebase secret or a token you create with no expiry, used to authenticate
 // To Firebase and access search data.
- exports.FB_TOKEN = process.env.FB_TOKEN || null;
+exports.FB_TOKEN = process.env.FB_TOKEN || null;
 
 // The path in your Firebase where clients will write search requests
 exports.FB_REQ   = process.env.FB_REQ || 'search/request';
@@ -60,23 +60,14 @@ else {
  * location you specified in the FB_PATHS variable. Be sure to restrict that data in your Security Rules.
  ****************************************************/
 
-exports.paths = [
-   //{
-   //   path: "users",
-   //   index: "firebase",
-   //   type:  "user"
-   //},
-   {
-      path: "comments",
-      index: "firebase",
-      type:  "comment",
-      fields: ['content', 'user']
-   }
-];
+ // LOOK AT THIS FOR NESTED PATH MAPPINGS IN THE FUTURE!
+ //https://github.com/firebase/flashlight/pull/25/files
+
+exports.paths = firebaseIndexPaths();
+//console.log(firebaseIndexPaths());
 
 // Paths can also be stored in Firebase and loaded using FB_PATHS!
 exports.FB_PATH = process.env.FB_PATHS || null;
-
 
 /** Config Options
  ***************************************************/
@@ -94,4 +85,26 @@ function processBonsaiUrl(exports, url) {
    exports.ES_USER = matches[1];
    exports.ES_PASS = matches[2];
    console.log('Configured using BONSAI_URL environment variable', url, exports);
+}
+
+function productionEnv() {
+  process.env.NODE_ENV === 'production'
+}
+
+function firebaseIndexPaths() {
+  path = productionEnv()? "stargazing-zooniverse-org/projects/2/comments" :
+                        "demo-zooniverse-org/projects/2/comments";
+  index = productionEnv()? "stargazing_comments" : "demo_comments";
+  //console.log("Firebase configuration paths for ENV: " + process.env.NODE_ENV);
+  //console.log(path);
+  //console.log(index);
+  return [
+    {
+      path: path,
+      index: index,
+      type:  "comment",
+      fields: ['content'],
+      filter: function(data) { return data.hasOwnProperty('flagged') && data.flagged !== true; }
+    }
+  ];
 }
