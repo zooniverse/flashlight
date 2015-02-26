@@ -14,7 +14,7 @@ exports.FB_URL   = 'https://' + process.env.FB_NAME + '.firebaseio.com/';
 
 // Either your Firebase secret or a token you create with no expiry, used to authenticate
 // To Firebase and access search data.
-exports.FB_TOKEN = process.env.FB_TOKEN || null;
+ exports.FB_TOKEN = process.env.FB_TOKEN || null;
 
 // The path in your Firebase where clients will write search requests
 exports.FB_REQ   = process.env.FB_REQ || 'search/request';
@@ -61,17 +61,16 @@ else {
  ****************************************************/
 
 exports.paths = [
+   //{
+   //   path: "users",
+   //   index: "firebase",
+   //   type:  "user"
+   //},
    {
-      path:  "users",
+      path: "comments",
       index: "firebase",
-      type:  "user"
-   },
-   {
-      path:  "messages",
-      index: "firebase",
-      type:  "message",
-      fields: ['msg', 'name'],
-      filter: function(data) { return data.name !== 'system'; }
+      type:  "comment",
+      fields: ['content', 'user']
    }
 ];
 

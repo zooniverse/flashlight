@@ -6,7 +6,7 @@
    /**====== SET ME =====**/
    /**====== SET ME =====**/
    /**====== SET ME =====**/
-   var URL = 'https://INSTANCE.firebaseio.com';
+   var URL = 'https://panoptes-comments.firebaseio.com';
 
    // handle form submits
    $('form').on('submit', function(e) {
