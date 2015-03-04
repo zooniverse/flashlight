@@ -2,7 +2,7 @@
 function timeout_cmd {
   if [ -z "$2" ]
   then
-  TIMEOUT=10
+  TIMEOUT=60
   else
   TIMEOUT=$2
   fi
