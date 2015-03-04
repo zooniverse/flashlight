@@ -41,20 +41,23 @@
 
    function showResults(snap) {
       if( snap.val() === null ) { return; } // wait until we get data
-      var dat = snap.val();
-//      console.log('result', snap.name(), snap.val());
-      snap.ref().off('value', showResults);
-      snap.ref().remove();
-      var $pair = $('#results')
-         .text(JSON.stringify(dat, null, 2))
-         .add( $('#total').text(dat.total) )
-         .removeClass('error zero');
-      if( dat.error ) {
-         $pair.addClass('error');
-      }
-      else if( dat.total < 1 ) {
-         $pair.addClass('zero');
-      }
+      setTimeout(function() {
+        console.log('sleeping');
+        var dat = snap.val();
+        console.log('result', snap.name(), dat);
+        snap.ref().off('value', showResults);
+        snap.ref().remove();
+        var $pair = $('#results')
+           .text(JSON.stringify(dat, null, 2))
+           .add( $('#total').text(dat.total) )
+           .removeClass('error zero');
+        if( dat.error ) {
+           $pair.addClass('error');
+        }
+        else if( dat.total < 1 ) {
+           $pair.addClass('zero');
+        }
+      }.bind(this), 500);
    }
 
    function buildQuery(term, words) {
