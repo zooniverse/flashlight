@@ -3,10 +3,19 @@
 (function ($) {
    "use strict";
 
-   /**====== SET ME =====**/
-   /**====== SET ME =====**/
-   /**====== SET ME =====**/
    var URL = 'https://panoptes-comments.firebaseio.com';
+   var token = 'FIREBASE_TOKEN_GOES_HERE';
+
+   //auth a connection to firebase
+   var ref = new Firebase(URL);
+   ref.auth(token, function(error, result) {
+     if (error) {
+       console.log("Login Failed!", error);
+     } else {
+       console.log("Authenticated successfully to firebase");
+       //console.log("Auth expires at:", new Date(result.expires * 1000));
+     }
+   });
 
    // handle form submits
    $('form').on('submit', function(e) {
@@ -24,10 +33,10 @@
 
    // display search results
    function doSearch(index, type, query) {
-      var ref = new Firebase(URL+'/search');
-      var key = ref.child('request').push({ index: index, type: type, query: query }).name();
-      console.log('search', key, { index: index, type: type, query: query });
-      ref.child('response/'+key).on('value', showResults);
+     var ref = new Firebase(URL + '/search');
+     var key = ref.child('request').push({ index: index, type: type, query: query }).name();
+     console.log('search', key, { index: index, type: type, query: query });
+     ref.child('response/'+key).on('value', showResults);
    }
 
    function showResults(snap) {
