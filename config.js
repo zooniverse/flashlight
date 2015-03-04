@@ -104,7 +104,14 @@ function firebaseIndexPaths() {
       index: index,
       type:  "comment",
       fields: ['content'],
-      filter: function(data) { return data.hasOwnProperty('flagged') && data.flagged !== true; }
+      filter: function(data) {
+        var flagged_field_exists = data.hasOwnProperty('flagged')
+        var index_comment = true;
+        if (flagged_field_exists) {
+          index_comment = data.flagged !== true;
+        }
+        return index_comment;
+      }
     }
   ];
 }
