@@ -41,14 +41,15 @@
 
    function showResults(snap) {
       var dat = snap.val();
-      //console.log("Show results called with result data: %s", JSON.stringify(dat));
-      if( dat === null || dat.total === 0 ) { return; } // wait until we get data
+      console.log("Show results called with result data: %s", JSON.stringify(dat));
+      if( dat === null || !dat.hasOwnProperty('hits')) { return; } // wait until we get data
       snap.ref().off('value', showResults);
       snap.ref().remove();
-      console.log('result', snap.name(), dat);
+      var hits = dat.hits;
+      console.log('result', snap.name(), hits);
       var $pair = $('#results')
-         .text(JSON.stringify(dat, null, 2))
-         .add( $('#total').text(dat.total) )
+         .text(JSON.stringify(hits, null, 2))
+         .add( $('#total').text(hits.total) )
          .removeClass('error zero');
       if( dat.error ) {
          $pair.addClass('error');
