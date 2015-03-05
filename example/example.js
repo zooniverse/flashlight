@@ -40,24 +40,22 @@
    }
 
    function showResults(snap) {
-      if( snap.val() === null ) { return; } // wait until we get data
-      setTimeout(function() {
-        console.log('sleeping');
-        var dat = snap.val();
-        console.log('result', snap.name(), dat);
-        snap.ref().off('value', showResults);
-        snap.ref().remove();
-        var $pair = $('#results')
-           .text(JSON.stringify(dat, null, 2))
-           .add( $('#total').text(dat.total) )
-           .removeClass('error zero');
-        if( dat.error ) {
-           $pair.addClass('error');
-        }
-        else if( dat.total < 1 ) {
-           $pair.addClass('zero');
-        }
-      }.bind(this), 500);
+      var dat = snap.val();
+      //console.log("Show results called with result data: %s", JSON.stringify(dat));
+      if( dat === null || dat.total === 0 ) { return; } // wait until we get data
+      snap.ref().off('value', showResults);
+      snap.ref().remove();
+      console.log('result', snap.name(), dat);
+      var $pair = $('#results')
+         .text(JSON.stringify(dat, null, 2))
+         .add( $('#total').text(dat.total) )
+         .removeClass('error zero');
+      if( dat.error ) {
+         $pair.addClass('error');
+      }
+      else if( dat.total < 1 ) {
+         $pair.addClass('zero');
+      }
    }
 
    function buildQuery(term, words) {
