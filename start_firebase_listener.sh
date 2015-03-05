@@ -40,6 +40,8 @@ fi
 timeout_cmd "[ $(curl --write-out %{http_code} --silent --output /dev/null $ES_HOST:9200) -eq 200 ]"
 
 #start the app
-node app.js &
-cd example
-serve
+exec node app.js
+#start the example app to run searches
+#cd example
+#sed -i s/FIREBASE_TOKEN_GOES_HERE/$FB_TOKEN/g example.js
+#serve

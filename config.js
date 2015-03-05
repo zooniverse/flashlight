@@ -92,8 +92,8 @@ function productionEnv() {
 }
 
 function firebaseIndexPaths() {
-  path = productionEnv()? "stargazing-zooniverse-org/projects/2/comments" :
-                        "demo-zooniverse-org/projects/2/comments";
+  path = productionEnv()? "stargazing2015-zooniverse-org/projects/2/comments" :
+                          "demo-zooniverse-org/projects/2/comments";
   index = productionEnv()? "stargazing_comments" : "demo_comments";
   //console.log("Firebase configuration paths for ENV: " + process.env.NODE_ENV);
   //console.log(path);
@@ -103,8 +103,7 @@ function firebaseIndexPaths() {
       path: path,
       index: index,
       type:  "comment",
-      fields: ['content'],
-      filter: function(data) { return data.hasOwnProperty('flagged') && data.flagged !== true; }
+      fields: ['content']
     }
   ];
 }
