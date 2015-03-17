@@ -88,7 +88,7 @@ function processBonsaiUrl(exports, url) {
 }
 
 function productionEnv() {
-  process.env.NODE_ENV === 'production'
+  return process.env.NODE_ENV === 'production';
 }
 
 function firebaseIndexPaths() {
