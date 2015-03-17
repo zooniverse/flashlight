@@ -92,8 +92,8 @@ function productionEnv() {
 }
 
 function firebaseIndexPaths() {
-  path = productionEnv()? "stargazing2015-zooniverse-org/projects/2/comments" :
-                          "demo-zooniverse-org/projects/2/comments";
+  path = productionEnv()? "stargazing2015-zooniverse-org/projects/1/comments" :
+                          "demo-zooniverse-org/projects/76/comments";
   index = productionEnv()? "stargazing_comments" : "demo_comments";
   //console.log("Firebase configuration paths for ENV: " + process.env.NODE_ENV);
   //console.log(path);
