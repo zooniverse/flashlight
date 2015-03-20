@@ -103,7 +103,7 @@ function firebaseIndexPaths() {
       path: path,
       index: index,
       type:  "comment",
-      fields: ['content']
+      fields: ['content', 'timestamp', 'subject']
     }
   ];
 }
